@@ -10,14 +10,16 @@ namespace RobotRemote
 {
     class HttpRequest
     {
-        private string node_host = "robotcontrol.azurewebsites.net";//"wof-nodebot.azurewebsites.net"; //"robotcontrol.azurewebsites.net"; //CHANGE BACK TO "[your host]"
+        private string node_host = "udderweb.com:4284";
         string json;
-        public HttpRequest(string body)
+
+        public HttpRequest()
         {
-            json = body;
         }
-        public void sendInstructions()
+
+        public void sendInstructions(string body)
         {
+            this.json = body;
             string sURL = "http://" + node_host + "/robot/list";
             //Uri url = new Uri(sURL);
 
@@ -33,6 +35,7 @@ namespace RobotRemote
             }
             catch { }
         }
+
         void GetRequestStreamCallback(IAsyncResult asynchronousResult)
         {
             HttpWebRequest webRequest = (HttpWebRequest)asynchronousResult.AsyncState;
@@ -51,6 +54,7 @@ namespace RobotRemote
             // Start the web request 
             webRequest.BeginGetResponse(new AsyncCallback(GetResponseCallback), webRequest);
         }
+
         void GetResponseCallback(IAsyncResult asynchronousResult)
         {
             try
@@ -65,12 +69,11 @@ namespace RobotRemote
                 streamResponse.Dispose();
                 streamReader.Dispose();
                 response.Dispose();
-
             }
             catch (WebException e)
             {
                 // Error treatment 
-                // ... 
+                
             }
         } 
     }

@@ -25,11 +25,13 @@ namespace RobotRemote
 
     public sealed partial class MainPage : Page
     {
-        private string fwd = "{\"commandList\":[{\"angle\":0,\"distance\":1}]}";
-        private string back = "{\"commandList\":[{\"angle\":180,\"distance\":1}]}";
-        private string right = "{\"commandList\":[{\"angle\":5,\"distance\":0}]}";
-        private string left = "{\"commandList\":[{\"angle\":5,\"distance\":0}]}";
-        private string stop = "{\"commandList\":[{\"angle\":0,\"distance\":0}]}";
+        private HttpRequest request = new HttpRequest();
+
+        private static string FWD = "{\"commandList\":[{\"angle\":0,\"distance\":1}]}";
+        private static string BACK = "{\"commandList\":[{\"angle\":0,\"distance\":-1}]}";
+        private static string RIGHT = "{\"commandList\":[{\"angle\":35,\"distance\":0}]}";
+        private static string LEFT = "{\"commandList\":[{\"angle\":-35,\"distance\":0}]}";
+        private static string STOP = "{\"commandList\":[{\"angle\":0,\"distance\":0}]}";
 
 
         public MainPage()
@@ -39,36 +41,27 @@ namespace RobotRemote
 
         private void stopButtonClicked(object sender, RoutedEventArgs e)
         {
-            HttpRequest request = new HttpRequest(stop);
-            request.sendInstructions();
+            request.sendInstructions(STOP);
         }
 
         private void upButtonClicked(object sender, RoutedEventArgs e)
         {
-            HttpRequest request = new HttpRequest(fwd);
-            request.sendInstructions();
-
+            request.sendInstructions(FWD);
         }
 
         private void leftButtonClicked(object sender, RoutedEventArgs e)
         {
-            HttpRequest request = new HttpRequest(left);
-            request.sendInstructions();
-
+            request.sendInstructions(LEFT);
         }
 
         private void rightButtonClicked(object sender, RoutedEventArgs e)
         {
-            HttpRequest request = new HttpRequest(right);
-            request.sendInstructions();
-
+            request.sendInstructions(RIGHT);
         }
 
         private void downButtonClicked(object sender, RoutedEventArgs e)
         {
-            HttpRequest request = new HttpRequest(back);
-            request.sendInstructions();
-
+            request.sendInstructions(BACK);
         }
     }
 }
